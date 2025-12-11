@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-header">
+    <span class="section-icon">🔧</span>
+    <h1 class="section-title">QA Utility Kit</h1>
+    <p class="section-description">
+        Generate test data instantly! Select the data types you need and export to CSV or JSON. 
+        Perfect for testing forms, APIs, and databases! 📊
+    </p>
+</section>
+
+<div class="card">
+    <h3 class="card-title">📋 Select Data Types</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Choose one or multiple data types to generate. Click on each type to select it.
+    </p>
+    
+    <div class="checkbox-grid" id="dataTypeGrid">
+        <label class="checkbox-item">
+            <input type="checkbox" value="name" checked>
+            <span class="checkbox-custom"></span>
+            <span>👤 Full Name</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="firstName">
+            <span class="checkbox-custom"></span>
+            <span>📝 First Name</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="lastName">
+            <span class="checkbox-custom"></span>
+            <span>📝 Last Name</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="email" checked>
+            <span class="checkbox-custom"></span>
+            <span>📧 Email</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="phone">
+            <span class="checkbox-custom"></span>
+            <span>📱 Phone</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="address">
+            <span class="checkbox-custom"></span>
+            <span>🏠 Address</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="company">
+            <span class="checkbox-custom"></span>
+            <span>🏢 Company</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="username">
+            <span class="checkbox-custom"></span>
+            <span>👤 Username</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="password">
+            <span class="checkbox-custom"></span>
+            <span>🔐 Password</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="uuid">
+            <span class="checkbox-custom"></span>
+            <span>🆔 UUID</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="date">
+            <span class="checkbox-custom"></span>
+            <span>📅 Date</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="creditCard">
+            <span class="checkbox-custom"></span>
+            <span>💳 Credit Card</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="ipAddress">
+            <span class="checkbox-custom"></span>
+            <span>🌐 IP Address</span>
+        </label>
+        <label class="checkbox-item">
+            <input type="checkbox" value="url">
+            <span class="checkbox-custom"></span>
+            <span>🔗 URL</span>
+        </label>
+    </div>
+
+    <div class="form-group" style="margin-top: 2rem;">
+        <label class="form-label">Number of Records (1-100)</label>
+        <input type="number" class="form-input" id="recordCount" value="10" min="1" max="100" style="max-width: 200px;">
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="generateData()">
+            ⚡ Generate Data
+        </button>
+        <button class="btn btn-secondary" onclick="selectAll()">
+            ✅ Select All
+        </button>
+        <button class="btn btn-secondary" onclick="deselectAll()">
+            ❌ Deselect All
+        </button>
+    </div>
+</div>
+
+<!-- Generated Data Display -->
+<div class="card" id="outputCard" style="display: none; margin-top: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <h3 class="card-title" style="margin-bottom: 0;">📊 Generated Data</h3>
+        <div class="btn-group" style="margin-top: 0;">
+            <button class="btn btn-success" onclick="downloadCSV()">
+                📥 Download CSV
+            </button>
+            <button class="btn btn-primary" onclick="downloadJSON()">
+                📥 Download JSON
+            </button>
+            <button class="btn btn-secondary" onclick="copyToClipboard()">
+                📋 Copy JSON
+            </button>
+        </div>
+    </div>
+    
+    <div class="alert alert-success" id="dataAlert" style="display: none;">
+        <span>✅</span>
+        <span id="alertMessage"></span>
+    </div>
+
+    <!-- Table View -->
+    <div class="table-container" id="tableContainer">
+        <table class="data-table" id="dataTable">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- JSON View Toggle -->
+    <div style="margin-top: 1.5rem;">
+        <button class="btn btn-secondary" onclick="toggleJsonView()">
+            👁️ Toggle JSON View
+        </button>
+    </div>
+    
+    <div class="output-container" id="jsonOutput" style="display: none;">
+        <pre id="jsonPre"></pre>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card" style="margin-top: 2rem;">
+    <h3 class="card-title">⚡ Quick Generate</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+        One-click generation for common data combinations
+    </p>
+    
+    <div class="tools-grid">
+        <button class="btn btn-secondary" onclick="quickGenerate(['name', 'email', 'phone'])">
+            👤 User Profile
+        </button>
+        <button class="btn btn-secondary" onclick="quickGenerate(['name', 'email', 'address', 'phone'])">
+            📦 Shipping Info
+        </button>
+        <button class="btn btn-secondary" onclick="quickGenerate(['username', 'password', 'email'])">
+            🔐 Login Credentials
+        </button>
+        <button class="btn btn-secondary" onclick="quickGenerate(['company', 'email', 'phone', 'address'])">
+            🏢 Company Data
+        </button>
+        <button class="btn btn-secondary" onclick="quickGenerate(['name', 'creditCard', 'address'])">
+            💳 Payment Info
+        </button>
+        <button class="btn btn-secondary" onclick="quickGenerate(['ipAddress', 'url', 'uuid'])">
+            🌐 Network Data
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let generatedData = [];
+
+    function getSelectedTypes() {
+        const checkboxes = document.querySelectorAll('#dataTypeGrid input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    function selectAll() {
+        document.querySelectorAll('#dataTypeGrid input[type="checkbox"]').forEach(cb => cb.checked = true);
+    }
+
+    function deselectAll() {
+        document.querySelectorAll('#dataTypeGrid input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+
+    async function generateData() {
+        const types = getSelectedTypes();
+        const count = parseInt(document.getElementById('recordCount').value) || 10;
+        
+        if (types.length === 0) {
+            showAlert('Please select at least one data type!', 'warning');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/generate-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ types, count })
+            });
+            
+            const result = await response.json();
+            generatedData = result.data;
+            displayData(generatedData);
+            showAlert(`Successfully generated ${generatedData.length} records! 🎉`);
+        } catch (error) {
+            showAlert('Error generating data. Please try again.', 'danger');
+        }
+    }
+
+    function quickGenerate(types) {
+        // Uncheck all
+        document.querySelectorAll('#dataTypeGrid input[type="checkbox"]').forEach(cb => {
+            cb.checked = types.includes(cb.value);
+        });
+        generateData();
+    }
+
+    function displayData(data) {
+        const outputCard = document.getElementById('outputCard');
+        const tableHead = document.getElementById('tableHead');
+        const tableBody = document.getElementById('tableBody');
+        const jsonPre = document.getElementById('jsonPre');
+
+        // Show the output card
+        outputCard.style.display = 'block';
+
+        // Build table headers
+        if (data.length > 0) {
+            const headers = Object.keys(data[0]);
+            tableHead.innerHTML = '<tr>' + headers.map(h => `<th>${formatHeader(h)}</th>`).join('') + '</tr>';
+
+            // Build table body
+            tableBody.innerHTML = data.map(row => 
+                '<tr>' + headers.map(h => `<td>${row[h] || ''}</td>`).join('') + '</tr>'
+            ).join('');
+        }
+
+        // Update JSON view
+        jsonPre.textContent = JSON.stringify(data, null, 2);
+
+        // Scroll to output
+        outputCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function formatHeader(header) {
+        return header.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+    }
+
+    function toggleJsonView() {
+        const jsonOutput = document.getElementById('jsonOutput');
+        const tableContainer = document.getElementById('tableContainer');
+        
+        if (jsonOutput.style.display === 'none') {
+            jsonOutput.style.display = 'block';
+            tableContainer.style.display = 'none';
+        } else {
+            jsonOutput.style.display = 'none';
+            tableContainer.style.display = 'block';
+        }
+    }
+
+    function showAlert(message, type = 'success') {
+        const alert = document.getElementById('dataAlert');
+        const alertMessage = document.getElementById('alertMessage');
+        
+        alert.className = `alert alert-${type}`;
+        alertMessage.textContent = message;
+        alert.style.display = 'flex';
+        
+        setTimeout(() => {
+            alert.style.display = 'none';
+        }, 3000);
+    }
+
+    function downloadCSV() {
+        if (generatedData.length === 0) return;
+
+        const headers = Object.keys(generatedData[0]);
+        const csvContent = [
+            headers.join(','),
+            ...generatedData.map(row => headers.map(h => `"${row[h] || ''}"`).join(','))
+        ].join('\n');
+
+        downloadFile(csvContent, 'test-data.csv', 'text/csv');
+        showAlert('CSV file downloaded! 📥');
+    }
+
+    function downloadJSON() {
+        if (generatedData.length === 0) return;
+        downloadFile(JSON.stringify(generatedData, null, 2), 'test-data.json', 'application/json');
+        showAlert('JSON file downloaded! 📥');
+    }
+
+    function downloadFile(content, filename, type) {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function copyToClipboard() {
+        if (generatedData.length === 0) return;
+        navigator.clipboard.writeText(JSON.stringify(generatedData, null, 2));
+        showAlert('JSON copied to clipboard! 📋');
+    }
+</script>
+{% endblock %}

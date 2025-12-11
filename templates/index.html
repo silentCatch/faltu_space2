@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Birthday Hero Section -->
+<section class="birthday-hero">
+    <span class="birthday-emoji">🎂</span>
+    <h1 class="birthday-title">Happy Birthday, {{ info.pet_name }}! 🎉</h1>
+    <p class="birthday-subtitle">{{ info.name }}</p>
+    <div class="birthday-age">{{ info.age }}</div>
+    <p class="birthday-message">
+        🌟 Wishing you the most amazing birthday ever! 🌟<br>
+        May this new year of your life be filled with endless joy, 
+        success, and all the beautiful things you deserve. 
+        You're not just a year older, you're a year more awesome! 💖
+    </p>
+    <div class="btn-group" style="justify-content: center;">
+        <button class="btn btn-primary" onclick="triggerConfetti()">
+            🎊 Celebrate!
+        </button>
+        <button class="btn btn-secondary" onclick="showBirthdaySong()">
+            🎵 Birthday Song
+        </button>
+    </div>
+</section>
+
+<!-- Feature Cards Section -->
+<section class="section-header">
+    <span class="section-icon">✨</span>
+    <h2 class="section-title">Your Special Tools</h2>
+    <p class="section-description">
+        A collection of awesome tools made just for you! Explore each one and have fun! 🚀
+    </p>
+</section>
+
+<div class="feature-grid">
+    <!-- QA Utility Kit Card -->
+    <div class="card">
+        <span class="card-icon">🔧</span>
+        <h3 class="card-title">QA Utility Kit</h3>
+        <p class="card-description">
+            Generate test data instantly! Names, emails, addresses, and more. 
+            Export to CSV or JSON with just one click. Perfect for your QA adventures! 📊
+        </p>
+        <a href="/qa-utility" class="card-link">
+            Explore Tool →
+        </a>
+    </div>
+
+    <!-- Release Notes Card -->
+    <div class="card">
+        <span class="card-icon">📝</span>
+        <h3 class="card-title">Release Notes</h3>
+        <p class="card-description">
+            Check out all the amazing features and bug fixes! Stay updated with the 
+            latest improvements. Don't forget to accept the update! 🎁
+        </p>
+        <a href="/release-notes" class="card-link">
+            View Notes →
+        </a>
+    </div>
+
+    <!-- Stress Buster Card -->
+    <div class="card">
+        <span class="card-icon">🧘</span>
+        <h3 class="card-title">Stress Buster</h3>
+        <p class="card-description">
+            Need a break? Get instant motivation, developer memes, and stress relief tips. 
+            Because even QA superstars need to relax! 😌
+        </p>
+        <a href="/stress-buster" class="card-link">
+            Relax Now →
+        </a>
+    </div>
+
+    <!-- AI App Tester Card -->
+    <div class="card">
+        <span class="card-icon">🤖</span>
+        <h3 class="card-title">AI App Tester</h3>
+        <p class="card-description">
+            Comprehensive AI testing toolkit! Prompt tester, security checks, test case 
+            generator, and bug tracker all in one place. 🛡️
+        </p>
+        <a href="/ai-tester" class="card-link">
+            Start Testing →
+        </a>
+    </div>
+</div>
+
+<!-- Birthday Stats -->
+<section style="margin-top: 4rem;">
+    <div class="card" style="text-align: center;">
+        <h3 class="card-title">🎂 Birthday Stats 🎂</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div>
+                <div style="font-size: 3rem;">💖</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-primary);">25</div>
+                <div style="color: var(--text-muted);">Years of Awesome</div>
+            </div>
+            <div>
+                <div style="font-size: 3rem;">🌟</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-secondary);">9,131</div>
+                <div style="color: var(--text-muted);">Days of Amazing</div>
+            </div>
+            <div>
+                <div style="font-size: 3rem;">⭐</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-tertiary);">∞</div>
+                <div style="color: var(--text-muted);">Reasons to Smile</div>
+            </div>
+            <div>
+                <div style="font-size: 3rem;">🎁</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-success);">100%</div>
+                <div style="color: var(--text-muted);">Pure Awesomeness</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Birthday Wishes -->
+<section style="margin-top: 3rem;">
+    <div class="card">
+        <h3 class="card-title" style="text-align: center;">💌 Special Birthday Wishes 💌</h3>
+        <div class="quote-card" style="margin-top: 1.5rem;">
+            <p class="quote-text" id="birthdayWish">
+                "On your special day, I want you to know how much you mean to me. 
+                You make every day brighter with your smile, your passion, and your incredible spirit. 
+                Here's to another year of adventures, laughter, and unforgettable moments together. 
+                Happy 25th Birthday, Faltu! 🥳💕"
+            </p>
+            <p class="quote-author">— With all my love ❤️</p>
+        </div>
+        <div class="btn-group" style="justify-content: center; margin-top: 1.5rem;">
+            <button class="btn btn-primary" onclick="nextWish()">
+                💝 Next Wish
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Confetti Container -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- Birthday Song Modal -->
+<div class="modal-overlay" id="songModal">
+    <div class="modal-content">
+        <span class="modal-emoji">🎵</span>
+        <h2 class="modal-title">Birthday Song!</h2>
+        <p class="modal-text" style="font-size: 1.5rem; line-height: 2;">
+            🎶 Happy Birthday to you! 🎶<br>
+            🎶 Happy Birthday to you! 🎶<br>
+            🎶 Happy Birthday dear <span class="text-gradient">Faltu</span>! 🎶<br>
+            🎶 Happy Birthday to you! 🎶
+        </p>
+        <button class="btn btn-primary" onclick="closeSongModal()">
+            🎉 Thank You!
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Birthday wishes array
+    const wishes = [
+        "On your special day, I want you to know how much you mean to me. You make every day brighter with your smile, your passion, and your incredible spirit. Here's to another year of adventures, laughter, and unforgettable moments together. Happy 25th Birthday, Faltu! 🥳💕",
+        "25 looks absolutely amazing on you! May this year bring you closer to all your dreams and fill your heart with endless happiness. You deserve all the love and joy in the world! 💖✨",
+        "To the most incredible person I know - Happy Birthday! Your kindness, strength, and beautiful soul inspire everyone around you. Here's to celebrating YOU today! 🌟🎂",
+        "Another year of being absolutely fabulous! May your 25th year be filled with success, love, and all the QA bugs you can squash! You're unstoppable! 🦋💪",
+        "Happy Birthday to someone who makes the world a better place just by being in it! Wishing you a day as wonderful and special as you are! 🌈🎁"
+    ];
+    let currentWishIndex = 0;
+
+    function nextWish() {
+        currentWishIndex = (currentWishIndex + 1) % wishes.length;
+        const wishElement = document.getElementById('birthdayWish');
+        wishElement.style.opacity = '0';
+        setTimeout(() => {
+            wishElement.textContent = `"${wishes[currentWishIndex]}"`;
+            wishElement.style.opacity = '1';
+        }, 300);
+    }
+
+    function triggerConfetti() {
+        const container = document.getElementById('confettiContainer');
+        const colors = ['#ff6b9d', '#c44dff', '#00d4ff', '#ffd700', '#00ff88', '#ff4444'];
+        const emojis = ['🎉', '🎊', '🎈', '💖', '⭐', '✨', '🎁', '🥳', '💝', '🌟'];
+        
+        for (let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                if (Math.random() > 0.5) {
+                    confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                } else {
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                }
+                
+                container.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 4000);
+            }, i * 30);
+        }
+    }
+
+    function showBirthdaySong() {
+        document.getElementById('songModal').classList.add('active');
+        triggerConfetti();
+    }
+
+    function closeSongModal() {
+        document.getElementById('songModal').classList.remove('active');
+    }
+
+    // Auto-trigger confetti on page load
+    window.addEventListener('load', () => {
+        setTimeout(triggerConfetti, 1000);
+    });
+</script>
+{% endblock %}

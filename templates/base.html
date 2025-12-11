@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday Faltu! 💖</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+</head>
+<body>
+    <!-- Theme Toggle (Draggable) -->
+    <button class="theme-toggle" id="themeToggle" title="Click to toggle theme, drag to move">
+        <span class="theme-icon">🌙</span>
+        <span class="drag-hint">✨ Drag me!</span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">
+                <span class="brand-icon">💝</span>
+                <span class="brand-text">Faltu's Hub</span>
+            </a>
+        </div>
+        <button class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">🏠 Home</a></li>
+            <li><a href="/qa-utility" class="nav-link {% if request.path == '/qa-utility' %}active{% endif %}">🔧 QA Utility</a></li>
+            <li><a href="/release-notes" class="nav-link {% if request.path == '/release-notes' %}active{% endif %}">📝 Release Notes</a></li>
+            <li><a href="/stress-buster" class="nav-link {% if request.path == '/stress-buster' %}active{% endif %}">🧘 Stress Buster</a></li>
+            <li><a href="/ai-tester" class="nav-link {% if request.path == '/ai-tester' %}active{% endif %}">🤖 AI Tester</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                Made with 💖 for <span class="highlight">Manisha Rana</span> (Faltu)
+            </p>
+            <p class="footer-subtext">
+                🎂 Happy 25th Birthday! 🎉 - December 12, 2025
+            </p>
+            <div class="footer-hearts">
+                <span>💕</span><span>💖</span><span>💗</span><span>💓</span><span>💞</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Elements (Birthday decorations) -->
+    <div class="floating-decorations" id="floatingDecorations"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

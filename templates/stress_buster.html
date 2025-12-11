@@ -1,0 +1,1152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-header">
+    <span class="section-icon">🧘</span>
+    <h1 class="section-title">Stress Buster</h1>
+    <p class="section-description">
+        Take a break and recharge! Get motivation, laugh at developer memes, 
+        and find quick stress relief tips. You deserve it! 💆‍♀️
+    </p>
+</section>
+
+<!-- Tabs -->
+<div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('motivation')">💪 Motivation</button>
+    <button class="tab-btn" onclick="switchTab('memes')">😂 Dev Memes</button>
+    <button class="tab-btn" onclick="switchTab('tips')">🌟 Stress Tips</button>
+    <button class="tab-btn" onclick="switchTab('drama')">🎭 Dev Drama</button>
+</div>
+
+<!-- Motivation Tab -->
+<div class="tab-content active" id="motivation-tab">
+    <div class="card">
+        <h3 class="card-title">💪 Instant Motivation</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Need a boost? Click the button to get an inspiring quote!
+        </p>
+        
+        <div class="quote-card" id="quoteCard">
+            <p class="quote-text" id="quoteText">
+                "Click the button below to get your motivational boost!"
+            </p>
+            <p class="quote-author" id="quoteAuthor">— Your Friend 💖</p>
+        </div>
+        
+        <div class="btn-group" style="justify-content: center; margin-top: 1.5rem;">
+            <button class="btn btn-primary" onclick="getNewQuote()">
+                ⚡ New Quote
+            </button>
+            <button class="btn btn-secondary" onclick="copyQuote()">
+                📋 Copy Quote
+            </button>
+        </div>
+    </div>
+
+    <!-- Affirmations -->
+    <div class="card" style="margin-top: 2rem;">
+        <h3 class="card-title">🌈 Daily Affirmations</h3>
+        <div class="tools-grid" style="margin-top: 1rem;">
+            <div class="quote-card" style="padding: 1rem;">
+                <p style="font-size: 1.1rem;">I am capable of amazing things! ✨</p>
+            </div>
+            <div class="quote-card" style="padding: 1rem;">
+                <p style="font-size: 1.1rem;">Every bug I find makes the product better! 🐛</p>
+            </div>
+            <div class="quote-card" style="padding: 1rem;">
+                <p style="font-size: 1.1rem;">My attention to detail is my superpower! 🦸‍♀️</p>
+            </div>
+            <div class="quote-card" style="padding: 1rem;">
+                <p style="font-size: 1.1rem;">I bring value to my team every day! 💎</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Memes Tab -->
+<div class="tab-content" id="memes-tab">
+    <div class="card">
+        <h3 class="card-title">😂 Developer Memes</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Laugh your stress away with these relatable dev moments!
+        </p>
+        
+        <div class="quote-card" id="memeCard" style="min-height: 200px;">
+            <p class="meme-text" id="memeText">
+                Click the button to get a meme! 🎭
+            </p>
+            <div class="meme-emoji" id="memeEmoji">🤔</div>
+        </div>
+        
+        <div class="btn-group" style="justify-content: center; margin-top: 1.5rem;">
+            <button class="btn btn-primary" onclick="getNewMeme()">
+                😂 Next Meme
+            </button>
+        </div>
+    </div>
+
+    <!-- Classic Memes Gallery -->
+    <div class="card" style="margin-top: 2rem;">
+        <h3 class="card-title">🎭 Classic Dev Moments</h3>
+        <div class="feature-grid" style="margin-top: 1rem;">
+            <div class="quote-card">
+                <p class="meme-text">Me: *Fixes one bug*<br><br>Code: "Here's 10 more!" 🎁</p>
+                <div class="meme-emoji">🐛</div>
+            </div>
+            <div class="quote-card">
+                <p class="meme-text">Production: *works*<br><br>Me: "I don't trust it..." 🤔</p>
+                <div class="meme-emoji">😰</div>
+            </div>
+            <div class="quote-card">
+                <p class="meme-text">QA: "Found a bug!"<br><br>Dev: "That's a feature!" 😎</p>
+                <div class="meme-emoji">🔥</div>
+            </div>
+            <div class="quote-card">
+                <p class="meme-text">Tests: ✅ All passing<br><br>Confidence: Still zero 😅</p>
+                <div class="meme-emoji">🎭</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stress Tips Tab -->
+<div class="tab-content" id="tips-tab">
+    <div class="card">
+        <h3 class="card-title">🌟 Quick Stress Relief Tips</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Simple techniques to help you relax and refocus
+        </p>
+        
+        <div class="feature-grid">
+            <div class="card" style="background: var(--bg-secondary);">
+                <span class="card-icon">🫁</span>
+                <h4 class="card-title" style="font-size: 1.25rem;">Deep Breathing</h4>
+                <p class="card-description">
+                    Try the 4-7-8 technique: Breathe in for 4 seconds, 
+                    hold for 7 seconds, exhale for 8 seconds. Repeat 3 times.
+                </p>
+                <button class="btn btn-secondary" onclick="startBreathing()">
+                    ▶️ Start Exercise
+                </button>
+            </div>
+            
+            <div class="card" style="background: var(--bg-secondary);">
+                <span class="card-icon">💪</span>
+                <h4 class="card-title" style="font-size: 1.25rem;">Desk Stretches</h4>
+                <p class="card-description">
+                    Roll your shoulders, stretch your neck, and extend your arms. 
+                    Just 2 minutes of stretching can reduce tension!
+                </p>
+                <button class="btn btn-secondary" onclick="showStretches()">
+                    📋 View Stretches
+                </button>
+            </div>
+            
+            <div class="card" style="background: var(--bg-secondary);">
+                <span class="card-icon">☕</span>
+                <h4 class="card-title" style="font-size: 1.25rem;">Take a Break</h4>
+                <p class="card-description">
+                    Step away from your screen every 25 minutes. 
+                    Grab water, stretch, or take a short walk.
+                </p>
+                <button class="btn btn-secondary" onclick="startPomodoro()">
+                    ⏱️ Start Timer
+                </button>
+            </div>
+            
+            <div class="card" style="background: var(--bg-secondary);">
+                <span class="card-icon">🎵</span>
+                <h4 class="card-title" style="font-size: 1.25rem;">Listen to Music</h4>
+                <p class="card-description">
+                    Put on your favorite playlist or try lo-fi beats. 
+                    Music can boost mood and productivity!
+                </p>
+                <button class="btn btn-secondary" onclick="showMusicTips()">
+                    🎧 Music Tips
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pomodoro Timer -->
+    <div class="card" style="margin-top: 2rem; text-align: center;" id="pomodoroCard">
+        <h3 class="card-title">⏱️ Focus Timer</h3>
+        <div style="font-size: 4rem; font-family: 'Orbitron', sans-serif; margin: 2rem 0;" id="timerDisplay">
+            25:00
+        </div>
+        <div class="btn-group" style="justify-content: center;">
+            <button class="btn btn-primary" id="timerBtn" onclick="toggleTimer()">
+                ▶️ Start
+            </button>
+            <button class="btn btn-secondary" onclick="resetTimer()">
+                🔄 Reset
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Dev Drama Tab -->
+<div class="tab-content" id="drama-tab">
+    <div class="card">
+        <h3 class="card-title">🎭 Developer Drama Generator</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Classic developer scenarios that we all know too well! 😅
+        </p>
+        
+        <!-- Dynamic Drama Card -->
+        <div id="dramaCardContainer">
+            <div class="drama-card drama-card-green" id="dramaCard">
+                <div class="drama-card-header">
+                    <span class="drama-card-emoji">💯</span>
+                    <h4 class="drama-card-title" id="dramaTitle">You Are RIGHT!</h4>
+                </div>
+                <p class="drama-card-message" id="dramaMessage">
+                    Developers gonna develop, but QA gonna catch 'em all! 🔍
+                </p>
+                <p class="drama-card-subtext" id="dramaSubtext">
+                    Remember: A bug denied is still a bug. Document it, screenshot it, prove them wrong! 📸
+                </p>
+            </div>
+        </div>
+        
+        <div class="btn-group" style="justify-content: center; margin-top: 1.5rem;">
+            <button class="btn btn-primary" onclick="getNewDrama()">
+                🎲 Generate Drama
+            </button>
+        </div>
+    </div>
+
+    <!-- QA Motivation Cards -->
+    <div class="card" style="margin-top: 2rem;">
+        <h3 class="card-title">💪 QA Power Cards</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            Click the button to reveal motivational cards! 🎯
+        </p>
+        
+        <div class="btn-group" style="justify-content: center; margin-bottom: 1.5rem;">
+            <button class="btn btn-toggle" id="toggleCardsBtn" onclick="toggleMotivationCards()">
+                <span id="toggleIcon">📂</span> <span id="toggleText">Show All Cards</span>
+            </button>
+        </div>
+        
+        <div class="drama-grid motivation-cards-grid" id="motivationCardsContainer" style="display: none;">
+            <!-- Card 1 -->
+            <div class="drama-card drama-card-green" id="motivationCard1" onclick="nextMotivationCard(1)">
+                <div class="drama-card-header">
+                    <span class="drama-card-emoji">💯</span>
+                    <h4 class="drama-card-title">You Are RIGHT!</h4>
+                </div>
+                <p class="drama-card-message">
+                    Developers gonna develop, but QA gonna catch 'em all! 🔍
+                </p>
+                <p class="drama-card-subtext">
+                    Remember: A bug denied is still a bug. Document it, screenshot it, prove them wrong! 📸
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="drama-card drama-card-pink" id="motivationCard2" onclick="nextMotivationCard(2)">
+                <div class="drama-card-header" style="flex-direction: column;">
+                    <h4 class="drama-card-title" style="text-align: center; width: 100%;">Classic Developer Response:</h4>
+                </div>
+                <div class="drama-card-emoji-large">🤷</div>
+                <p class="drama-card-message" style="text-align: center;">
+                    "Works on my machine!"
+                </p>
+                <p class="drama-card-response">
+                    <em>Your Response: "Then we'll ship your machine!" 😎</em>
+                </p>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="drama-card drama-card-green" id="motivationCard3" onclick="nextMotivationCard(3)">
+                <div class="drama-card-header">
+                    <span class="drama-card-emoji">🦸</span>
+                    <h4 class="drama-card-title">You're The Hero!</h4>
+                </div>
+                <p class="drama-card-message">
+                    Tests don't fail. Developers fail tests! 💥
+                </p>
+                <p class="drama-card-subtext">
+                    You're not breaking things, you're finding what's already broken! 🌟
+                </p>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="drama-card drama-card-pink" id="motivationCard4" onclick="nextMotivationCard(4)">
+                <div class="drama-card-header" style="flex-direction: column;">
+                    <h4 class="drama-card-title" style="text-align: center; width: 100%;">QA Truth Bomb:</h4>
+                </div>
+                <div class="drama-card-emoji-large">💣</div>
+                <p class="drama-card-message" style="text-align: center;">
+                    "I don't break your code.<br>I break your illusions about your code."
+                </p>
+                <p class="drama-card-response">
+                    <em>- Every QA Engineer Ever 😏</em>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Drama Scenarios -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header-collapsible" onclick="toggleSection('dramaClassics')">
+            <h3 class="card-title" style="margin: 0; cursor: pointer;">🎬 More Drama Classics</h3>
+            <span class="collapse-icon" id="dramaClassicsIcon">▼</span>
+        </div>
+        <div class="collapsible-content expanded" id="dramaClassicsContent">
+            <div class="drama-grid" style="margin-top: 1rem;">
+                <!-- Bug Blame Game -->
+                <div class="drama-card drama-card-purple">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">🎯</span>
+                        <h4 class="drama-card-title">The Blame Game</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">👉🐛👈</div>
+                    <p class="drama-card-message">
+                        Dev: "It's a QA environment issue"<br>
+                        DevOps: "It's a code issue"<br>
+                        PM: "It's not in scope"
+                    </p>
+                    <p class="drama-card-response">
+                        <em>QA: "It's literally right here in production" 🙄</em>
+                    </p>
+                </div>
+
+                <!-- The Negotiator -->
+                <div class="drama-card drama-card-purple">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">🤝</span>
+                        <h4 class="drama-card-title">The Negotiator</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">📉</div>
+                    <p class="drama-card-message">
+                        PM: "Can we call it a 'known limitation' instead of a bug?"
+                    </p>
+                    <p class="drama-card-response">
+                        <em>QA: "Sure, let's call fire a 'thermal event'" 🔥</em>
+                    </p>
+                </div>
+
+                <!-- The Time Traveler -->
+                <div class="drama-card drama-card-green">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">⏰</span>
+                        <h4 class="drama-card-title">Time Traveler Dev</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">🕰️</div>
+                    <p class="drama-card-message">
+                        "It was working yesterday!"
+                    </p>
+                    <p class="drama-card-response">
+                        <em>QA: "Cool, let's deploy yesterday's code then" 😏</em>
+                    </p>
+                </div>
+
+                <!-- The Optimist -->
+                <div class="drama-card drama-card-pink">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">🌈</span>
+                        <h4 class="drama-card-title">The Eternal Optimist</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">✨</div>
+                    <p class="drama-card-message">
+                        Dev: "This is a quick 5-minute fix"
+                    </p>
+                    <p class="drama-card-response">
+                        <em>*3 days and 47 commits later* 💀</em>
+                    </p>
+                </div>
+                
+                <!-- The Friday Deploy -->
+                <div class="drama-card drama-card-purple">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">🎪</span>
+                        <h4 class="drama-card-title">Friday Deploy</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">🚀</div>
+                    <p class="drama-card-message">
+                        "Let's push to production, it's only 5 PM on Friday!"
+                    </p>
+                    <p class="drama-card-response">
+                        <em>*Monday: Emergency all-hands meeting* 🚨</em>
+                    </p>
+                </div>
+                
+                <!-- The Scope Creep -->
+                <div class="drama-card drama-card-pink">
+                    <div class="drama-card-header">
+                        <span class="drama-card-emoji">👻</span>
+                        <h4 class="drama-card-title">The Scope Creep</h4>
+                    </div>
+                    <div class="drama-card-emoji-large">📈</div>
+                    <p class="drama-card-message">
+                        PM: "Just one tiny feature addition..."
+                    </p>
+                    <p class="drama-card-response">
+                        <em>*Sprint backlog grows by 200%* 😵</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QA Wisdom Section -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header-collapsible" onclick="toggleSection('wisdomScrolls')">
+            <h3 class="card-title" style="margin: 0; cursor: pointer;">📜 QA Wisdom Scrolls</h3>
+            <span class="collapse-icon" id="wisdomScrollsIcon">▼</span>
+        </div>
+        <div class="collapsible-content expanded" id="wisdomScrollsContent">
+            <div class="qa-wisdom-grid" style="margin-top: 1rem;">
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">🧙‍♀️</span>
+                    <p class="wisdom-text">"In production, no one can hear you scream."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">🔮</span>
+                    <p class="wisdom-text">"The bug you don't find will find the customer."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">⚔️</span>
+                    <p class="wisdom-text">"A QA engineer walks into a bar. Orders 1 beer. Orders 0 beers. Orders -1 beers. Orders 999999 beers."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">🛡️</span>
+                    <p class="wisdom-text">"We're not pessimists. We're professionally paranoid."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">🌊</span>
+                    <p class="wisdom-text">"Documentation is like a love letter to your future self."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">💡</span>
+                    <p class="wisdom-text">"If debugging is removing bugs, then programming is putting them in."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">🎯</span>
+                    <p class="wisdom-text">"99 bugs in the code, take one down, patch it around... 127 bugs in the code."</p>
+                </div>
+                <div class="wisdom-card">
+                    <span class="wisdom-emoji">☕</span>
+                    <p class="wisdom-text">"Coffee and patience - a QA engineer's best friends."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Breathing Exercise Modal -->
+<div class="modal-overlay" id="breathingModal">
+    <div class="modal-content">
+        <span class="modal-emoji" id="breathingEmoji">🫁</span>
+        <h2 class="modal-title" id="breathingTitle">Get Ready</h2>
+        <p class="modal-text" id="breathingInstruction">
+            Find a comfortable position and relax your shoulders.
+        </p>
+        <div style="font-size: 4rem; font-family: 'Orbitron', sans-serif; margin: 1rem 0;" id="breathingTimer">
+            --
+        </div>
+        <button class="btn btn-primary" id="breathingBtn" onclick="startBreathingExercise()">
+            ▶️ Begin
+        </button>
+        <button class="btn btn-secondary" onclick="closeBreathingModal()" style="margin-left: 0.5rem;">
+            ✕ Close
+        </button>
+    </div>
+</div>
+
+<!-- Stretches Modal -->
+<div class="modal-overlay" id="stretchesModal">
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="modal-emoji">💪</span>
+        <h2 class="modal-title">Desk Stretches</h2>
+        <div style="text-align: left; margin: 1.5rem 0;">
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-check" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">Neck Rolls</div>
+                        <div class="checklist-description">Slowly roll your head in circles, 5 times each direction</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-check" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">Shoulder Shrugs</div>
+                        <div class="checklist-description">Raise shoulders to ears, hold 3 seconds, release. Repeat 10 times</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-check" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">Wrist Stretches</div>
+                        <div class="checklist-description">Extend arm, pull fingers back gently. Hold 15 seconds each side</div>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-check" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">Seated Spinal Twist</div>
+                        <div class="checklist-description">Twist torso to each side, hold chair for support. 15 seconds each</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="closeStretchesModal()">
+            ✅ Done Stretching!
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Tab Switching
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(tabName + '-tab').classList.add('active');
+    }
+
+    // Quotes
+    async function getNewQuote() {
+        try {
+            const response = await fetch('/api/quotes');
+            const data = await response.json();
+            
+            const quoteText = document.getElementById('quoteText');
+            const quoteAuthor = document.getElementById('quoteAuthor');
+            
+            quoteText.style.opacity = '0';
+            quoteAuthor.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteText.textContent = `"${data.quote}"`;
+                quoteAuthor.textContent = `— ${data.author}`;
+                quoteText.style.opacity = '1';
+                quoteAuthor.style.opacity = '1';
+            }, 300);
+        } catch (error) {
+            console.error('Error fetching quote:', error);
+        }
+    }
+
+    function copyQuote() {
+        const quote = document.getElementById('quoteText').textContent;
+        const author = document.getElementById('quoteAuthor').textContent;
+        navigator.clipboard.writeText(`${quote} ${author}`);
+        alert('Quote copied to clipboard! 📋');
+    }
+
+    // Memes
+    async function getNewMeme() {
+        try {
+            const response = await fetch('/api/memes');
+            const data = await response.json();
+            
+            const memeText = document.getElementById('memeText');
+            const memeEmoji = document.getElementById('memeEmoji');
+            
+            memeText.style.opacity = '0';
+            memeEmoji.style.opacity = '0';
+            
+            setTimeout(() => {
+                memeText.textContent = data.text;
+                memeEmoji.textContent = data.emoji;
+                memeText.style.opacity = '1';
+                memeEmoji.style.opacity = '1';
+            }, 300);
+        } catch (error) {
+            console.error('Error fetching meme:', error);
+        }
+    }
+
+    // Drama Generator - Enhanced with multiple card types
+    const dramaCards = [
+        {
+            type: 'green',
+            emoji: '💯',
+            title: 'You Are RIGHT!',
+            message: "Developers gonna develop, but QA gonna catch 'em all! 🔍",
+            subtext: 'Remember: A bug denied is still a bug. Document it, screenshot it, prove them wrong! 📸'
+        },
+        {
+            type: 'green',
+            emoji: '🦸',
+            title: "You're The Hero!",
+            message: "Tests don't fail. Developers fail tests! 💥",
+            subtext: "You're not breaking things, you're finding what's already broken! That's literally your job, and you're AMAZING at it! 🌟"
+        },
+        {
+            type: 'pink',
+            emoji: '🤷',
+            title: 'Classic Developer Response:',
+            message: '"Works on my machine!"',
+            subtext: 'Your Response: "Then we\'ll ship your machine!" 😎',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '💣',
+            title: 'QA Truth Bomb:',
+            message: '"I don\'t break your code.<br>I break your illusions about your code."',
+            subtext: '- Every QA Engineer Ever 😏',
+            centered: true
+        },
+        {
+            type: 'purple',
+            emoji: '🎯',
+            title: 'The Blame Game',
+            message: 'Dev: "It\'s a QA environment issue"<br>DevOps: "It\'s a code issue"<br>PM: "It\'s not in scope"',
+            subtext: 'QA: "It\'s literally right here in production" 🙄',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '⏰',
+            title: 'Time Traveler Dev',
+            message: '"It was working yesterday!"',
+            subtext: 'QA: "Cool, let\'s deploy yesterday\'s code then" 😏',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '✨',
+            title: 'The Eternal Optimist',
+            message: 'Dev: "This is a quick 5-minute fix"',
+            subtext: '*3 days and 47 commits later* 💀',
+            centered: true
+        },
+        {
+            type: 'purple',
+            emoji: '🔮',
+            title: 'The Fortune Teller',
+            message: '"We\'ll add tests in the next sprint..."',
+            subtext: 'Narrator: They never did. 📖',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '🏆',
+            title: 'QA Victory!',
+            message: 'When the bug you reported gets fixed before release 🎊',
+            subtext: "That's not luck, that's SKILL! You saved the day! 💪"
+        },
+        {
+            type: 'pink',
+            emoji: '🎭',
+            title: 'The Plot Twist',
+            message: '"Can we mark this as Won\'t Fix?"',
+            subtext: 'QA: "Can we mark your salary as Won\'t Pay?" 💅',
+            centered: true
+        },
+        {
+            type: 'purple',
+            emoji: '🧪',
+            title: 'Lab Report',
+            message: 'Bug reproduction steps:<br>1. Open app<br>2. Look at it<br>3. It breaks',
+            subtext: 'Dev: "Need more details" 🤦',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '🛡️',
+            title: 'QA Shield Activated!',
+            message: "You're the last line of defense before production! 🏰",
+            subtext: 'Users sleep peacefully because of YOU. Heroes don\'t always wear capes! 🦸‍♀️'
+        },
+        {
+            type: 'purple',
+            emoji: '🎪',
+            title: 'The Friday Deploy',
+            message: '"Let\'s push this to production before the weekend!"',
+            subtext: 'QA: "And I\'ll push my resignation too" 🚪',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '🔥',
+            title: 'Untouchable!',
+            message: 'When your bug report is so detailed, devs can\'t say "Cannot Reproduce" 💪',
+            subtext: 'Screenshots, logs, steps, environment - you covered it ALL! 📋'
+        },
+        {
+            type: 'pink',
+            emoji: '🎬',
+            title: 'Director\'s Cut:',
+            message: 'PM: "Can we ship without testing?"',
+            subtext: 'QA: "Can you drive without brakes?" 🚗💨',
+            centered: true
+        },
+        {
+            type: 'purple',
+            emoji: '🌙',
+            title: 'Night Owl Stories',
+            message: '"Just one small hotfix at 11 PM..."',
+            subtext: '*Entire system crashes at 11:05 PM* 🔥',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '👑',
+            title: 'Crown Moment!',
+            message: 'When you find a critical bug 10 minutes before release 🎯',
+            subtext: 'You just saved the company from a PR disaster! That\'s QUEEN energy! 👸'
+        },
+        {
+            type: 'pink',
+            emoji: '🤖',
+            title: 'The Automation Myth:',
+            message: '"We don\'t need QA, we have automated tests!"',
+            subtext: 'Automated tests: *passes* | Production: *burns* 🔥',
+            centered: true
+        },
+        {
+            type: 'purple',
+            emoji: '📞',
+            title: 'Support Call',
+            message: 'Customer: "The app crashed"<br>Dev: "Did you try turning it off and on?"',
+            subtext: 'QA: "Did YOU try testing it?" 😤',
+            centered: true
+        },
+        {
+            type: 'green',
+            emoji: '💎',
+            title: 'Diamond Hands!',
+            message: 'Holding onto that bug report even when everyone says "It\'s fine" 💪',
+            subtext: 'Spoiler: It wasn\'t fine. You were right. Again. 😌'
+        }
+    ];
+
+    let lastDramaIndex = -1;
+    
+    function getNewDrama() {
+        // Get a different drama than the last one
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * dramaCards.length);
+        } while (randomIndex === lastDramaIndex && dramaCards.length > 1);
+        
+        lastDramaIndex = randomIndex;
+        const drama = dramaCards[randomIndex];
+        const container = document.getElementById('dramaCardContainer');
+        
+        // Fade out
+        container.style.opacity = '0';
+        container.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+            const centerStyle = drama.centered ? 'text-align: center;' : '';
+            container.innerHTML = `
+                <div class="drama-card drama-card-${drama.type}" style="transition: all 0.3s ease;">
+                    <div class="drama-card-header" style="${drama.centered ? 'flex-direction: column;' : ''}">
+                        ${drama.centered ? '' : `<span class="drama-card-emoji">${drama.emoji}</span>`}
+                        <h4 class="drama-card-title" style="${centerStyle}">${drama.title}</h4>
+                    </div>
+                    ${drama.centered ? `<div class="drama-card-emoji-large">${drama.emoji}</div>` : ''}
+                    <p class="drama-card-message" style="${centerStyle}">
+                        ${drama.message}
+                    </p>
+                    <p class="${drama.centered ? 'drama-card-response' : 'drama-card-subtext'}">
+                        ${drama.centered ? '<em>' + drama.subtext + '</em>' : drama.subtext}
+                    </p>
+                </div>
+            `;
+            
+            // Fade in
+            container.style.opacity = '1';
+            container.style.transform = 'scale(1)';
+        }, 300);
+    }
+
+    // Add transition styles to container
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('dramaCardContainer');
+        if (container) {
+            container.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        }
+    });
+
+    // Motivation Cards Data
+    const motivationCardsData = [
+        // Green cards (QA Power)
+        {
+            type: 'green',
+            emoji: '💯',
+            title: 'You Are RIGHT!',
+            message: "Developers gonna develop, but QA gonna catch 'em all! 🔍",
+            subtext: 'Remember: A bug denied is still a bug. Document it, screenshot it, prove them wrong! 📸'
+        },
+        {
+            type: 'green',
+            emoji: '🦸',
+            title: "You're The Hero!",
+            message: "Tests don't fail. Developers fail tests! 💥",
+            subtext: "You're not breaking things, you're finding what's already broken! That's literally your job, and you're AMAZING at it! 🌟"
+        },
+        {
+            type: 'green',
+            emoji: '🏆',
+            title: 'QA Victory!',
+            message: 'When the bug you reported gets fixed before release 🎊',
+            subtext: "That's not luck, that's SKILL! You saved the day! 💪"
+        },
+        {
+            type: 'green',
+            emoji: '🛡️',
+            title: 'QA Shield Activated!',
+            message: "You're the last line of defense before production! 🏰",
+            subtext: "Users sleep peacefully because of YOU. Heroes don't always wear capes! 🦸‍♀️"
+        },
+        {
+            type: 'green',
+            emoji: '🔥',
+            title: 'Untouchable!',
+            message: "When your bug report is so detailed, devs can't say 'Cannot Reproduce' 💪",
+            subtext: 'Screenshots, logs, steps, environment - you covered it ALL! 📋'
+        },
+        {
+            type: 'green',
+            emoji: '👑',
+            title: 'Crown Moment!',
+            message: 'When you find a critical bug 10 minutes before release 🎯',
+            subtext: "You just saved the company from a PR disaster! That's QUEEN energy! 👸"
+        },
+        {
+            type: 'green',
+            emoji: '💎',
+            title: 'Diamond Hands!',
+            message: "Holding onto that bug report even when everyone says 'It's fine' 💪",
+            subtext: "Spoiler: It wasn't fine. You were right. Again. 😌"
+        },
+        // Pink cards (Dev Responses)
+        {
+            type: 'pink',
+            emoji: '🤷',
+            title: 'Classic Developer Response:',
+            message: '"Works on my machine!"',
+            subtext: 'Your Response: "Then we\'ll ship your machine!" 😎',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '💣',
+            title: 'QA Truth Bomb:',
+            message: '"I don\'t break your code.<br>I break your illusions about your code."',
+            subtext: '- Every QA Engineer Ever 😏',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '✨',
+            title: 'The Eternal Optimist',
+            message: 'Dev: "This is a quick 5-minute fix"',
+            subtext: '*3 days and 47 commits later* 💀',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '🎭',
+            title: 'The Plot Twist',
+            message: '"Can we mark this as Won\'t Fix?"',
+            subtext: 'QA: "Can we mark your salary as Won\'t Pay?" 💅',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '🎬',
+            title: 'Director\'s Cut:',
+            message: 'PM: "Can we ship without testing?"',
+            subtext: 'QA: "Can you drive without brakes?" 🚗💨',
+            centered: true
+        },
+        {
+            type: 'pink',
+            emoji: '🤖',
+            title: 'The Automation Myth:',
+            message: '"We don\'t need QA, we have automated tests!"',
+            subtext: 'Automated tests: *passes* | Production: *burns* 🔥',
+            centered: true
+        }
+    ];
+    
+    let motivationIndex1 = 0;
+    let motivationIndex2 = 0;
+    let motivationIndex3 = 1;
+    let motivationIndex4 = 1;
+    
+    function nextMotivationCard(cardNum) {
+        const greenCards = motivationCardsData.filter(c => c.type === 'green');
+        const pinkCards = motivationCardsData.filter(c => c.type === 'pink');
+        
+        if (cardNum === 1) {
+            motivationIndex1 = (motivationIndex1 + 1) % greenCards.length;
+            renderMotivationCard(1, greenCards[motivationIndex1]);
+        } else if (cardNum === 2) {
+            motivationIndex2 = (motivationIndex2 + 1) % pinkCards.length;
+            renderMotivationCard(2, pinkCards[motivationIndex2]);
+        } else if (cardNum === 3) {
+            motivationIndex3 = (motivationIndex3 + 1) % greenCards.length;
+            renderMotivationCard(3, greenCards[motivationIndex3]);
+        } else if (cardNum === 4) {
+            motivationIndex4 = (motivationIndex4 + 1) % pinkCards.length;
+            renderMotivationCard(4, pinkCards[motivationIndex4]);
+        }
+    }
+    
+    function renderMotivationCard(cardNum, data) {
+        const card = document.getElementById('motivationCard' + cardNum);
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.95) rotateY(90deg)';
+        
+        setTimeout(() => {
+            const centerStyle = data.centered ? 'text-align: center;' : '';
+            card.className = `drama-card drama-card-${data.type}`;
+            card.innerHTML = `
+                <div class="drama-card-header" style="${data.centered ? 'flex-direction: column;' : ''}">
+                    ${data.centered ? '' : `<span class="drama-card-emoji">${data.emoji}</span>`}
+                    <h4 class="drama-card-title" style="${centerStyle}">${data.title}</h4>
+                </div>
+                ${data.centered ? `<div class="drama-card-emoji-large">${data.emoji}</div>` : ''}
+                <p class="drama-card-message" style="${centerStyle}">
+                    ${data.message}
+                </p>
+                <p class="${data.centered ? 'drama-card-response' : 'drama-card-subtext'}">
+                    ${data.centered ? '<em>' + data.subtext + '</em>' : data.subtext}
+                </p>
+            `;
+            
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) rotateY(0deg)';
+        }, 250);
+    }
+    
+    function shuffleAllMotivationCards() {
+        const greenCards = motivationCardsData.filter(c => c.type === 'green');
+        const pinkCards = motivationCardsData.filter(c => c.type === 'pink');
+        
+        motivationIndex1 = Math.floor(Math.random() * greenCards.length);
+        motivationIndex2 = Math.floor(Math.random() * pinkCards.length);
+        
+        renderMotivationCard(1, greenCards[motivationIndex1]);
+        setTimeout(() => {
+            renderMotivationCard(2, pinkCards[motivationIndex2]);
+        }, 150);
+    }
+    
+    // Add transition to motivation cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const card1 = document.getElementById('motivationCard1');
+        const card2 = document.getElementById('motivationCard2');
+        const card3 = document.getElementById('motivationCard3');
+        const card4 = document.getElementById('motivationCard4');
+        if (card1) card1.style.transition = 'all 0.4s ease';
+        if (card2) card2.style.transition = 'all 0.4s ease';
+        if (card3) card3.style.transition = 'all 0.4s ease';
+        if (card4) card4.style.transition = 'all 0.4s ease';
+        
+        // Set initial state for cards container
+        const container = document.getElementById('motivationCardsContainer');
+        if (container) {
+            container.style.transition = 'all 0.4s ease';
+        }
+    });
+    
+    // Toggle motivation cards visibility
+    let cardsVisible = false;
+    
+    function toggleMotivationCards() {
+        const container = document.getElementById('motivationCardsContainer');
+        const btn = document.getElementById('toggleCardsBtn');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        
+        cardsVisible = !cardsVisible;
+        
+        if (cardsVisible) {
+            container.style.display = 'grid';
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 50);
+            
+            icon.textContent = '📁';
+            text.textContent = 'Hide All Cards';
+            btn.classList.add('active');
+        } else {
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 400);
+            
+            icon.textContent = '📂';
+            text.textContent = 'Show All Cards';
+            btn.classList.remove('active');
+        }
+    }
+    
+    // Toggle collapsible sections (More Drama Classics, QA Wisdom Scrolls)
+    function toggleSection(sectionId) {
+        const content = document.getElementById(sectionId + 'Content');
+        const icon = document.getElementById(sectionId + 'Icon');
+        
+        if (content.classList.contains('expanded')) {
+            // Collapse
+            content.classList.remove('expanded');
+            icon.classList.add('collapsed');
+            icon.textContent = '▶';
+        } else {
+            // Expand
+            content.classList.add('expanded');
+            icon.classList.remove('collapsed');
+            icon.textContent = '▼';
+        }
+    }
+
+    // Timer
+    let timerInterval = null;
+    let timeRemaining = 25 * 60; // 25 minutes in seconds
+
+    function toggleTimer() {
+        const btn = document.getElementById('timerBtn');
+        
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            btn.innerHTML = '▶️ Start';
+        } else {
+            timerInterval = setInterval(updateTimer, 1000);
+            btn.innerHTML = '⏸️ Pause';
+        }
+    }
+
+    function updateTimer() {
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timerBtn').innerHTML = '▶️ Start';
+            alert('⏰ Time for a break! Great focus session! 🎉');
+            resetTimer();
+            return;
+        }
+        
+        timeRemaining--;
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        document.getElementById('timerDisplay').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timeRemaining = 25 * 60;
+        document.getElementById('timerDisplay').textContent = '25:00';
+        document.getElementById('timerBtn').innerHTML = '▶️ Start';
+    }
+
+    function startPomodoro() {
+        document.getElementById('pomodoroCard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Breathing Exercise
+    function startBreathing() {
+        document.getElementById('breathingModal').classList.add('active');
+    }
+
+    function closeBreathingModal() {
+        document.getElementById('breathingModal').classList.remove('active');
+    }
+
+    let breathingPhase = 0;
+    const phases = [
+        { name: 'Breathe In', duration: 4, emoji: '🫁' },
+        { name: 'Hold', duration: 7, emoji: '⏸️' },
+        { name: 'Breathe Out', duration: 8, emoji: '💨' }
+    ];
+    let breathingTimer = null;
+
+    function startBreathingExercise() {
+        const btn = document.getElementById('breathingBtn');
+        btn.disabled = true;
+        btn.textContent = 'In Progress...';
+        
+        let currentPhase = 0;
+        let cycles = 0;
+        const maxCycles = 3;
+        
+        function nextPhase() {
+            if (cycles >= maxCycles) {
+                document.getElementById('breathingTitle').textContent = 'Well Done! 🎉';
+                document.getElementById('breathingInstruction').textContent = 'You completed the breathing exercise!';
+                document.getElementById('breathingEmoji').textContent = '✨';
+                document.getElementById('breathingTimer').textContent = '--';
+                btn.disabled = false;
+                btn.textContent = '▶️ Start Again';
+                return;
+            }
+            
+            const phase = phases[currentPhase];
+            document.getElementById('breathingTitle').textContent = phase.name;
+            document.getElementById('breathingEmoji').textContent = phase.emoji;
+            
+            let countdown = phase.duration;
+            document.getElementById('breathingTimer').textContent = countdown;
+            
+            const countInterval = setInterval(() => {
+                countdown--;
+                document.getElementById('breathingTimer').textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countInterval);
+                    currentPhase++;
+                    if (currentPhase >= phases.length) {
+                        currentPhase = 0;
+                        cycles++;
+                    }
+                    setTimeout(nextPhase, 500);
+                }
+            }, 1000);
+        }
+        
+        document.getElementById('breathingInstruction').textContent = 'Follow the instructions...';
+        nextPhase();
+    }
+
+    // Stretches
+    function showStretches() {
+        document.getElementById('stretchesModal').classList.add('active');
+    }
+
+    function closeStretchesModal() {
+        document.getElementById('stretchesModal').classList.remove('active');
+    }
+
+    function toggleCheck(element) {
+        element.classList.toggle('checked');
+    }
+
+    function showMusicTips() {
+        alert('🎵 Music Tips:\n\n' +
+            '• Lo-fi beats for coding focus\n' +
+            '• Classical music for complex tasks\n' +
+            '• Upbeat music for repetitive work\n' +
+            '• Nature sounds for relaxation\n\n' +
+            'Try searching "coding music" on your favorite platform! 🎧');
+    }
+
+    // Load initial data
+    window.addEventListener('load', () => {
+        getNewQuote();
+        getNewMeme();
+    });
+</script>
+{% endblock %}
