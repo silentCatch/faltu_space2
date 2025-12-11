@@ -1,0 +1,12 @@
+[tool.poetry]
+name = "faltu_space2"
+version = "0.0.1"
+description = "Birthday gift web app"
+authors = ["samir <samir@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
