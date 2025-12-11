@@ -2,7 +2,7 @@
 name = "faltu_space2"
 version = "0.0.1"
 description = "Birthday gift web app"
-authors = ["samir <samir@example.com>"]
+authors = ["samir <smartsamir0205@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
